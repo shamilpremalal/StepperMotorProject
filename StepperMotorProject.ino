@@ -36,7 +36,7 @@ void loop() {
   // Collect all data from user: dispenser limit & dispenser button
   dispencerONButton = digitalRead(dispenserButton);
   value = analogRead(dispenserVar);          //Read and save analog value from potentiometer
-  value = map(value, 0, 1023, 0, 9000);      //Map value 0-1023 to 0-9000 (PWM)
+  value = map(value, 0, 1023, 0, 8700);      //Map value 0-1023 to 0-8700 (PWM) value found through trial & error (9000)
 
   //limiter (internal control)
   safetyONButton = digitalRead(safetySwitch);
@@ -47,6 +47,7 @@ void loop() {
       stepperFWD();
       while(dispencerONButton == HIGH &&  limit <=value ){
       motorStep();
+      dispencerONButton = digitalRead(dispenserButton);
       limit++;
       }
     
